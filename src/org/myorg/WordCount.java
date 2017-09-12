@@ -41,9 +41,11 @@ public class WordCount {
  }
         
  public static void main(String[] args) throws Exception {
-    Configuration conf = new Configuration();
-        
-    Job job = new Job(conf, "wordcount");
+
+    Configuration actionConf = new Configuration(false);
+    actionConf.addResource(new Path("file:///", System.getProperty("oozie.action.conf.xml")));
+
+    Job job = new Job(actionConf, "wordcount");
     job.setJarByClass(WordCount.class);
     
     job.setOutputKeyClass(Text.class);
